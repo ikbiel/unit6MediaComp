@@ -17,6 +17,14 @@ public class PictureTester
     beach.explore();
   }
   
+  public static void testKeepOnlyBlue()
+  {
+      Picture beach = new Picture("butterfly1.jpg");
+      beach.explore();
+      beach.keepOnlyBlue();
+      beach.explore();
+    }
+  
   /** Method to test mirrorVertical */
   public static void testMirrorVertical()
   {
@@ -34,6 +42,22 @@ public class PictureTester
     temple.mirrorTemple();
     temple.explore();
   }
+  
+  public static void testMirrorArms()
+  {
+      Picture snowman = new Picture("snowman.jpg");
+      snowman.explore();
+      snowman.mirrorArms();
+      snowman.explore();
+    }
+    
+  public static void testMirrorGull()
+  {
+      Picture gull = new Picture("seagull.jpg");
+      gull.explore();
+      gull.mirrorGull();
+      gull.explore();
+    }
   
   /** Method to test the collage method */
   public static void testCollage()
@@ -83,6 +107,7 @@ public class PictureTester
     // and comment out the ones you don't want
     // to run
     //testZeroBlue();
+    testKeepOnlyBlue();
     //testKeepOnlyBlue();
     //testKeepOnlyRed();
     //testKeepOnlyGreen();
@@ -90,8 +115,9 @@ public class PictureTester
     //testGrayscale();
     //testFixUnderwater();
     //testMirrorVertical();
-    testMirrorTemple();
+    //testMirrorTemple();
     //testMirrorArms();
+    //testMirrorGull();
     //testMirrorGull();
     //testMirrorDiagonal();
     //testCollage();

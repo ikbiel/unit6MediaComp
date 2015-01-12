@@ -98,6 +98,21 @@ public class Picture extends SimplePicture
     }
   }
   
+  public void keepOnlyBlue()
+  {
+      Pixel[][] pixels = this.getPixels2D();
+      for(Pixel[] rowArray : pixels)
+      {
+          for(Pixel pixelObj : rowArray)
+          {
+              pixelObj.setGreen(0);
+              pixelObj.setRed(0);
+            }
+        }
+    }
+    
+
+  
   /** Method that mirrors the picture around a 
     * vertical mirror in the center of the picture
     * from left to right */
@@ -148,7 +163,37 @@ public class Picture extends SimplePicture
   
   public void mirrorArms()
   {
-      for(int row = 193; row < 194; row++)
+      int mirrorPoint = 194;
+      Pixel topPixel = null;
+      Pixel bottomPixel = null;
+      Pixel[][] pixels = this.getPixels2D();
+      for(int row = 163; row < mirrorPoint; row++)
+      {
+          for(int col = 105; col < 294; col++)
+          {
+              topPixel = pixels[row][col];
+              bottomPixel = pixels[mirrorPoint - row + mirrorPoint][col];
+              bottomPixel.setColor(topPixel.getColor());
+              
+            }
+        }
+    }
+    
+  public void mirrorGull()
+  {
+      int mirrorPoint = 344;
+      Pixel leftPixel = null;
+      Pixel rightPixel = null;
+      Pixel[][] pixels = this.getPixels2D();
+      for(int row = 236; row < 328; row++)
+      {
+          for(int col = 238; col < mirrorPoint; col++)
+          {
+              leftPixel = pixels[row][col];
+              rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
+              rightPixel.setColor(leftPixel.getColor());
+            }
+        }
     }
   
   /** copy from the passed fromPic to the
