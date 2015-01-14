@@ -111,7 +111,52 @@ public class Picture extends SimplePicture
         }
     }
     
-
+  public void negate()
+  {
+      Pixel[][] pixels = this.getPixels2D();
+      for(Pixel[] rowArray : pixels)
+      {
+          for(Pixel pixelObj : rowArray)
+          {
+              pixelObj.setRed(255 - pixelObj.getRed());
+              pixelObj.setGreen(255 - pixelObj.getGreen());
+              pixelObj.setBlue(255 - pixelObj.getBlue());
+            }
+        }
+    }
+    
+  public void grayscale()
+  {
+      Pixel[][] pixels = this.getPixels2D();
+      
+      for(Pixel[] rowArray : pixels)
+      {
+          for(Pixel pixelObj : rowArray)
+          {
+              int average = (pixelObj.getRed() + pixelObj.getGreen() + pixelObj.getBlue())/3;
+              pixelObj.setRed(average);
+              pixelObj.setGreen(average);
+              pixelObj.setBlue(average);
+            }
+        }
+    }
+    
+  public void fixUnderWater()
+  {
+      Pixel[][] pixels = this.getPixels2D();
+      int blueVal = 160;
+      for(Pixel[] rowArray : pixels)
+      {
+          for(Pixel pixelObj : rowArray)
+          {
+              if(pixelObj.getBlue() >= blueVal)
+              {
+                  pixelObj.setRed(pixelObj.getRed()*3);
+                  pixelObj.setGreen(pixelObj.getGreen()/3);
+                }
+            }
+        }
+    }
   
   /** Method that mirrors the picture around a 
     * vertical mirror in the center of the picture
@@ -322,6 +367,12 @@ public class Picture extends SimplePicture
              topPixel.setColor(bottomPixel.getColor());
             }
      }
+    }
+    
+ public void cropAndCopy( Picture sourcePicture, int startSourceRow, 
+ int endSourceRow, int startSourceCol, int endSourceCol, int startDestRow, int startDestCol )
+ {
+     
     }
     
   /* Main method for testing - each class in Java can have a main 
