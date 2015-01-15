@@ -122,6 +122,15 @@ public class PictureTester
     caterpillar.mirrorHorizontalBottomToTop();
     caterpillar.explore();
  }
+ 
+ public static void testCropAndCopy()
+ {
+     Picture beach = new Picture("beach.jpg");
+     Picture snow = new Picture("snowman.jpg");
+     beach.explore();
+     beach.cropAndCopy(snow, 20, 30, 10, 20, 40, 30);
+     beach.explore();
+    }
   
   /** Main method for testing.  Every class can have a main
     * method in Java */
@@ -139,7 +148,7 @@ public class PictureTester
     //testKeepOnlyGreen();
     //testNegate();
     //testGrayscale();
-    testFixUnderWater();
+   // testFixUnderWater();
     //testMirrorVertical();
     //testMirrorTemple();
     //testMirrorArms();
@@ -159,5 +168,6 @@ public class PictureTester
     //testMirrorVerticalRightToLeft();
     //testMirrorHorizontal();
     //testMirrorHorizontalBottomToTop();
+    testCropAndCopy();
   }
 }
