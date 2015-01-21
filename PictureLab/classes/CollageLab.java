@@ -1,16 +1,15 @@
 
 
 /**
- * Write a description of class Collage here.
+ * Creates a collage of multiple variations of a picture of New York City: cropping, mirroring changing color.
  * 
- * @author (your name) 
+ * @author (ikbiel) 
  * @version (a version number or a date)
  */
-public class CollageLab
+public class CollageLab extends Picture
 {
     /** description of instance variable x (add comment for each instance variable) */
-    private Picture sourcePic;
-    private Picture cropPic;
+
 
     /**
      * Default constructor for objects of class Collage
@@ -18,18 +17,38 @@ public class CollageLab
     public CollageLab()
     {
         // initialise instance variables
-        sourcePic = new Picture("nyc.jpg");
-        cropPic = new Picture("moon.jpg");
+
     }
     
-    public void mirrorTopToBottom()
+    public void mirrorRight(int startRow, int endRow, int startCol, int mirrorPoint)
     {
+        Pixel leftPixel = null;
+        Pixel rightPixel = null;
+        Pixel[][] pixels = this.getPixels2D();
+      for(int row = startRow; row < endRow; row++)
+      {
+          for(int col = startCol; col < mirrorPoint; col++)
+          {
+              leftPixel = pixels[row][col];
+              rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
+              rightPixel.setColor(leftPixel.getColor());
+          }
+      }
         
     }
     
-    public void filter()
+    public void filter(int startRow, int endRow, int startCol, int endCol)
     {
-        
+        Pixel[][] pixels = this.getPixels2D();
+        for(Pixel[] rowArray : pixels)
+        {
+          for(Pixel pixelObj : rowArray)
+          {
+              pixelObj.setGreen(175);
+              pixelObj.setRed(100);
+              pixelObj.setBlue(80);
+          }
+        }
     }
     
     public void cropAndCopy( Picture sourcePicture, int startSourceRow, int endSourceRow, 
@@ -54,12 +73,13 @@ public class CollageLab
 
     public static void main(String[] args)
     {
-        Picture canvas = new Picture(4000, 4000);
-        Picture pic1 = new Picture("nycbw.jpg");
-        canvas.cropAndCopy(canvas, 0, 1600, 0, 1000, 0, 0); 
+        Picture canvas = new Picture("nycbw.jpg");
+        Picture picVar1 = new Picture("nycbw.jpg");
+        canvas.filter(picVar1, 764, 997, 876, 1169, 764, 876); 
+        canvas.filter(picVar1, 312, 657, 493, 869, 312, 493);
+        canvas.cropAndCopy(picVar1, 402, 632, 1058, 1598, 130, 1058);
+        canvas.mirrorRight(picVar1, 812, 997, 1040, 1522);
 
-
-        
     }
 
 }

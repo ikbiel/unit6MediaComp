@@ -369,7 +369,7 @@ public class Picture extends SimplePicture
      }
     }
     
- public void cropAndCopy( Picture sourcePicture, int startSourceRow, 
+ public void cropAndCopy1( Picture sourcePicture, int startSourceRow, 
  int endSourceRow, int startSourceCol, int endSourceCol, int startDestRow, int startDestCol )
  {
      Pixel[][] sourcePic = sourcePicture.getPixels2D();
@@ -392,15 +392,75 @@ public class Picture extends SimplePicture
        
     }
     
-  /* Main method for testing - each class in Java can have a main 
-   * method 
-   */
-  public static void main(String[] args) 
-  {
-    Picture beach = new Picture("beach.jpg");
-    beach.explore();
-    beach.zeroBlue();
-    beach.explore();
-  }
+    // START COLLAGE LAB WORK
+    public void mirrorRight(int startRow, int endRow, int startCol, int mirrorPoint)
+    {
+        Pixel leftPixel = null;
+        Pixel rightPixel = null;
+        Pixel[][] pixels = this.getPixels2D();
+      for(int row = startRow; row < endRow; row++)
+      {
+          for(int col = startCol; col < mirrorPoint; col++)
+          {
+              leftPixel = pixels[row][col];
+              rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
+              rightPixel.setColor(leftPixel.getColor());
+          }
+      }
+        
+    }
+    
+    public void filter(int startRow, int endRow, int startCol, int endCol)
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for(Pixel[] rowArray : pixels)
+        {
+          for(Pixel pixelObj : rowArray)
+          {
+              pixelObj.setGreen(175);
+              pixelObj.setRed(100);
+              pixelObj.setBlue(80);
+          }
+        }
+    }
+    
+    public void cropAndCopy( Picture sourcePicture, int startSourceRow, int endSourceRow, 
+    int startSourceCol, int endSourceCol, int startDestRow, int startDestCol )
+    {
+        Pixel[][] sourcePixels = sourcePicture.getPixels2D();
+        Pixel[][] destPic = this.getPixels2D();
+        
+        int valRow = endSourceRow - startSourceRow;
+        int valCol = endSourceCol - startSourceCol;
+     
+        for(int row = 0; row < valRow; row++)
+        {
+            for(int col = 0; col < valCol; col++)
+            {
+                Pixel pixel = sourcePixels[startSourceRow+row][startSourceCol+col]; 
+                destPic[startDestRow + row][startDestCol + col].setColor(pixel.getColor());
+             
+            }
+        }
+    }
+    
+    public void createRealCollage()
+    {
+        Picture sourcePic = new Picture("nycbw.jpg");
+        this.filter(764, 997, 876, 1169); 
+        this.filter(312, 657, 493, 869);
+        this.cropAndCopy(sourcePic,402, 632, 1058, 1598, 130, 1058);
+        this.mirrorRight(812, 997, 1040, 1522);
+    }
+
+    public static void main(String[] args)
+    {
+        Picture canvas = new Picture("nycbw.jpg");
+        canvas.createRealCollage();
+        canvas.explore();
+
+    }
+    
+ 
   
 } // this } is the end of class Picture, put all new methods before this
