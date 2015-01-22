@@ -413,13 +413,13 @@ public class Picture extends SimplePicture
     public void filter(int startRow, int endRow, int startCol, int endCol)
     {
         Pixel[][] pixels = this.getPixels2D();
-        for(Pixel[] rowArray : pixels)
+        for(int row = 0; row < (endRow - startRow); row++)
         {
-          for(Pixel pixelObj : rowArray)
+          for(int col = 0; col < (endCol - startCol); col++)
           {
-              pixelObj.setGreen(175);
-              pixelObj.setRed(100);
-              pixelObj.setBlue(80);
+              pixels[startRow + row][startCol + col].setGreen(175);
+              pixels[startRow + row][startCol + col].setRed(100);
+              pixels[startRow + row][startCol + col].setBlue(80);
           }
         }
     }
@@ -450,7 +450,7 @@ public class Picture extends SimplePicture
         this.filter(764, 997, 876, 1169); 
         this.filter(312, 657, 493, 869);
         this.cropAndCopy(sourcePic,402, 632, 1058, 1598, 130, 1058);
-        this.mirrorRight(812, 997, 1040, 1522);
+        //this.mirrorRight(812, 997, 1040, 1522);
     }
 
     public static void main(String[] args)
