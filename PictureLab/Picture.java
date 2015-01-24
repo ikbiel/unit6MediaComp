@@ -271,23 +271,54 @@ public class Picture extends SimplePicture
       }
     }   
   }
+  
+  public void filterComic()
+  {
+      Pixel[][] pixels = this.getPixels2D();
+      for(Pixel[] rowArray : pixels)
+      {
+          for(Pixel pixelObj : rowArray)
+          {
+              if(pixelObj.getRed()*2 <= 255)
+              {
+                  pixelObj.setRed(pixelObj.getRed()*2);
+                }
+              if(pixelObj.getGreen()*3 <= 255)
+              {
+                  pixelObj.setGreen(pixelObj.getGreen()*3);
+                }
+              pixelObj.setBlue(pixelObj.getBlue()/3);
+            }
+        }
+    }
 
   /** Method to create a collage of several pictures */
   public void createCollage()
   {
-    Picture flower1 = new Picture("flower1.jpg");
-    Picture flower2 = new Picture("flower2.jpg");
-    this.copy(flower1,0,0);
-    this.copy(flower2,100,0);
-    this.copy(flower1,200,0);
-    Picture flowerNoBlue = new Picture(flower2);
-    flowerNoBlue.zeroBlue();
-    this.copy(flowerNoBlue,300,0);
-    this.copy(flower1,400,0);
-    this.copy(flower2,500,0);
-    this.mirrorVertical();
-    this.write("collage.jpg");
+    Picture nyc = new Picture("cityrain.jpg");
+    Picture nycFlipped = new Picture(nyc);
+    Picture nycColor = new Picture(nyc);
+    Picture nycFlipColor = new Picture(nyc);
+    nycFlipped.mirrorVerticalRightToLeft();
+    nycColor.filterComic();
+    nycFlipColor.mirrorHorizontal();
+    nycFlipColor.filterComic();
+    
+    this.copy(nyc, 0, 0);
+    this.copy(nycColor, 650, 0);
+    this.copy(nycFlipColor, 0, 500);
+    this.copy(nycFlipped, 650, 500);
+
+    this.write("H:\\GitHub\\unit6MediaComp\\PictureLab\\images\\IzzyCollage.jpg");
   }
+  
+  public static void main(String[] args)
+    {
+        Picture canvas = new Picture(1300, 1000);
+        canvas.createCollage();
+        canvas.explore();
+
+    }
   
   
   /** Method to show large changes in color 
@@ -369,7 +400,7 @@ public class Picture extends SimplePicture
      }
     }
     
- public void cropAndCopy1( Picture sourcePicture, int startSourceRow, 
+ public void cropAndCopy( Picture sourcePicture, int startSourceRow, 
  int endSourceRow, int startSourceCol, int endSourceCol, int startDestRow, int startDestCol )
  {
      Pixel[][] sourcePic = sourcePicture.getPixels2D();
@@ -392,81 +423,65 @@ public class Picture extends SimplePicture
        
     }
     
-    // START COLLAGE LAB WORK
-    public void mirrorBuilding(int startRow, int endRow, int startCol, int mirrorPoint)
-    {
-      Pixel leftPixel = null;
-      Pixel rightPixel = null;
-      Pixel[][] pixels = this.getPixels2D();
-      for(int row = startRow; row < endRow; row++)
-      {
-          for(int col = startCol; col < mirrorPoint; col++)
-          {
-              leftPixel = pixels[row][col];
-              rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
-              rightPixel.setColor(leftPixel.getColor());
-            }
-        }
-      
-        
-    }
-    
-    public void filter(int startRow, int endRow, int startCol, int endCol)
-    {
-        Pixel[][] pixels = this.getPixels2D();
-        for(int row = 0; row < (endRow - startRow); row++)
-        {
-          for(int col = 0; col < (endCol - startCol); col++)
-          {
-              pixels[startRow + row][startCol + col].setGreen(
-                pixels[startRow + row][startCol + col].getGreen() * 3);
-              pixels[startRow + row][startCol + col].setRed(
-                pixels[startRow + row][startCol + col].getRed() * 2);
-              pixels[startRow + row][startCol + col].setBlue(
-                pixels[startRow + row][startCol + col].getBlue() / 2);
-          }
-        }
-    }
-    
-    public void cropAndCopy( Picture sourcePicture, int startSourceRow, int endSourceRow, 
-    int startSourceCol, int endSourceCol, int startDestRow, int startDestCol )
-    {
-        Pixel[][] sourcePixels = sourcePicture.getPixels2D();
-        Pixel[][] destPic = this.getPixels2D();
-        
-        int valRow = endSourceRow - startSourceRow;
-        int valCol = endSourceCol - startSourceCol;
-     
-        for(int row = 0; row < valRow; row++)
-        {
-            for(int col = 0; col < valCol; col++)
-            {
-                Pixel pixel = sourcePixels[startSourceRow+row][startSourceCol+col]; 
-                destPic[startDestRow + row][startDestCol + col].setColor(pixel.getColor());
-             
-            }
-        }
-    }
-    
-    public void createRealCollage()
-    {
-        Picture sourcePic = new Picture("nycbw.jpg");
-        //this.cropAndCopy(sourcePic,402, 632, 1058, 1598, 172, 1058);
-        this.mirrorBuilding(0, 366, 762, 953);
-        this.filter(764, 997, 876, 1169); 
-        this.filter(312, 657, 493, 869);
-        this.filter(786, 997, 0, 413);
-        this.filter(0, 258, 1252, 1599);
-        this.write("H:\\GitHub\\unit6MediaComp\\PictureLab\\images\\MyCollage.jpg");
-    }
+//     // START COLLAGE LAB WORK
+//     public void mirrorBuilding(int startRow, int endRow, int startCol, int mirrorPoint)
+//     {
+//       Pixel leftPixel = null;
+//       Pixel rightPixel = null;
+//       Pixel[][] pixels = this.getPixels2D();
+//       for(int row = startRow; row < endRow; row++)
+//       {
+//           for(int col = startCol; col < mirrorPoint; col++)
+//           {
+//               leftPixel = pixels[row][col];
+//               rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
+//               rightPixel.setColor(leftPixel.getColor());
+//             }
+//         }
+//       
+//         
+//     }
+//     
+//     public void filter(int startRow, int endRow, int startCol, int endCol)
+//     {
+//         Pixel[][] pixels = this.getPixels2D();
+//         for(int row = 0; row < (endRow - startRow); row++)
+//         {
+//           for(int col = 0; col < (endCol - startCol); col++)
+//           {
+//               pixels[startRow + row][startCol + col].setGreen(
+//                 pixels[startRow + row][startCol + col].getGreen()/5);
+//               pixels[startRow + row][startCol + col].setRed(
+//                 pixels[startRow + row][startCol + col].getRed()/8);
+//               pixels[startRow + row][startCol + col].setBlue(
+//                 pixels[startRow + row][startCol + col].getBlue() / 10);
+//           }
+//         }
+//     }
+//     
+//     public void cropAndCopy( Picture sourcePicture, int startSourceRow, int endSourceRow, 
+//     int startSourceCol, int endSourceCol, int startDestRow, int startDestCol )
+//     {
+//         Pixel[][] sourcePixels = sourcePicture.getPixels2D();
+//         Pixel[][] destPic = this.getPixels2D();
+//         
+//         int valRow = endSourceRow - startSourceRow;
+//         int valCol = endSourceCol - startSourceCol;
+//      
+//         for(int row = 0; row < valRow; row++)
+//         {
+//             for(int col = 0; col < valCol; col++)
+//             {
+//                 Pixel pixel = sourcePixels[startSourceRow+row][startSourceCol+col]; 
+//                 destPic[startDestRow + row][startDestCol + col].setColor(pixel.getColor());
+//              
+//             }
+//         }
+//     }
+//     
+//     
 
-    public static void main(String[] args)
-    {
-        Picture canvas = new Picture("nycbw.jpg");
-        canvas.createRealCollage();
-        canvas.explore();
-
-    }
+    
     
  
   
