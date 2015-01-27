@@ -1,5 +1,3 @@
-package classes;
-
 import java.awt.*;
 import java.awt.font.*;
 import java.awt.geom.*;
@@ -310,8 +308,9 @@ public class Picture extends SimplePicture
     this.copy(nycColor, 650, 0);
     this.copy(nycFlipColor, 0, 500);
     this.copy(nycFlipped, 650, 500);
+    
+    this.write("IzzyCollage.jpg");
 
-    this.write("H:\\GitHub\\unit6MediaComp\\PictureLab\\images\\IzzyCollage.jpg");
   }
   
   public static void main(String[] args)
@@ -424,67 +423,5 @@ public class Picture extends SimplePicture
      
        
     }
-    
-//     // START COLLAGE LAB WORK
-//     public void mirrorBuilding(int startRow, int endRow, int startCol, int mirrorPoint)
-//     {
-//       Pixel leftPixel = null;
-//       Pixel rightPixel = null;
-//       Pixel[][] pixels = this.getPixels2D();
-//       for(int row = startRow; row < endRow; row++)
-//       {
-//           for(int col = startCol; col < mirrorPoint; col++)
-//           {
-//               leftPixel = pixels[row][col];
-//               rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
-//               rightPixel.setColor(leftPixel.getColor());
-//             }
-//         }
-//       
-//         
-//     }
-//     
-//     public void filter(int startRow, int endRow, int startCol, int endCol)
-//     {
-//         Pixel[][] pixels = this.getPixels2D();
-//         for(int row = 0; row < (endRow - startRow); row++)
-//         {
-//           for(int col = 0; col < (endCol - startCol); col++)
-//           {
-//               pixels[startRow + row][startCol + col].setGreen(
-//                 pixels[startRow + row][startCol + col].getGreen()/5);
-//               pixels[startRow + row][startCol + col].setRed(
-//                 pixels[startRow + row][startCol + col].getRed()/8);
-//               pixels[startRow + row][startCol + col].setBlue(
-//                 pixels[startRow + row][startCol + col].getBlue() / 10);
-//           }
-//         }
-//     }
-//     
-//     public void cropAndCopy( Picture sourcePicture, int startSourceRow, int endSourceRow, 
-//     int startSourceCol, int endSourceCol, int startDestRow, int startDestCol )
-//     {
-//         Pixel[][] sourcePixels = sourcePicture.getPixels2D();
-//         Pixel[][] destPic = this.getPixels2D();
-//         
-//         int valRow = endSourceRow - startSourceRow;
-//         int valCol = endSourceCol - startSourceCol;
-//      
-//         for(int row = 0; row < valRow; row++)
-//         {
-//             for(int col = 0; col < valCol; col++)
-//             {
-//                 Pixel pixel = sourcePixels[startSourceRow+row][startSourceCol+col]; 
-//                 destPic[startDestRow + row][startDestCol + col].setColor(pixel.getColor());
-//              
-//             }
-//         }
-//     }
-//     
-//     
 
-    
-    
- 
-  
 } // this } is the end of class Picture, put all new methods before this

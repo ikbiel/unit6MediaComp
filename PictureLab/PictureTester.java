@@ -1,5 +1,3 @@
-package classes;
-
 /**
  * This class contains class (static) methods
  * that will help you test the Picture class 
@@ -88,7 +86,7 @@ public class PictureTester
   /** Method to test the collage method */
   public static void testCollage()
   {
-    Picture canvas = new Picture("nycbw.jpg");
+    Picture canvas = new Picture("IzzyCollage.jpg");
     canvas.createCollage();
     canvas.explore();
   }
